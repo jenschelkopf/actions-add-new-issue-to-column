@@ -10,7 +10,7 @@ async function run() {
     const columnName = core.getInput("column-name");
     const octokit = new github.GitHub(myToken);
     
-    console.log(`Action triggered by issue input #${github.event && github.event.inputs.issueId)}`);
+    console.log(`Action triggered by issue input #${github.event && github.event.inputs.issueId}`);
 
     const issueId = (github.event && github.event.inputs && github.event.inputs.issueId) || github.context.payload.issue.id;
 
