@@ -7,15 +7,15 @@ async function run() {
     const projectUrl = core.getInput("project-url");
     const columnName = core.getInput("column-name");
     const octokit = new github.GitHub(myToken);
-    const context = github.context;
+    const issueId = github.event.inputs.issueId || github.context.payload.issue.id;
 
-    console.log(`Action triggered by issue #${context.issue.number}`);
+    console.log(`Action triggered by issue #${issueId}`);
 
-    var info = await getColumnAndIssueInformation(columnName, projectUrl, myToken, context.payload.issue.id);
+    var info = await getColumnAndIssueInformation(columnName, projectUrl, myToken, issueId);
     if (info.cardId != null){
         return `No action being taken. A card already exists in the project for the issue. Column:${info.currentColumnName}, cardId:${info.cardId}.`;
     } else if(info.columnId != null) {
-        return await createNewCard(octokit, info.columnId, context.payload.issue.id);
+        return await createNewCard(octokit, info.columnId, issueId);
     } else {
         throw `Unable to find a columnId for the column ${columnName}, with Url:${projectUrl}`;
     }
