@@ -5,25 +5,25 @@ const graphql = require("@octokit/graphql");
 async function run() {
     console.log('helloooo');
     
-    const myToken = core.getInput("action-token");
-    const projectUrl = core.getInput("project-url");
-    const columnName = core.getInput("column-name");
-    const octokit = new github.GitHub(myToken);
+//     const myToken = core.getInput("action-token");
+//     const projectUrl = core.getInput("project-url");
+//     const columnName = core.getInput("column-name");
+//     const octokit = new github.GitHub(myToken);
     
-    console.log(`Action triggered by issue input #${github.event && github.event.inputs.issueId}`);
+//     console.log(`Action triggered by issue input #${github.event && github.event.inputs.issueId}`);
 
-    const issueId = (github.event && github.event.inputs && github.event.inputs.issueId) || github.context.payload.issue.id;
+//     const issueId = (github.event && github.event.inputs && github.event.inputs.issueId) || github.context.payload.issue.id;
 
-    console.log(`Action triggered by issue #${issueId}`);
+//     console.log(`Action triggered by issue #${issueId}`);
 
-    var info = await getColumnAndIssueInformation(columnName, projectUrl, myToken, issueId);
-    if (info.cardId != null){
-        return `No action being taken. A card already exists in the project for the issue. Column:${info.currentColumnName}, cardId:${info.cardId}.`;
-    } else if(info.columnId != null) {
-        return await createNewCard(octokit, info.columnId, issueId);
-    } else {
-        throw `Unable to find a columnId for the column ${columnName}, with Url:${projectUrl}`;
-    }
+//     var info = await getColumnAndIssueInformation(columnName, projectUrl, myToken, issueId);
+//     if (info.cardId != null){
+//         return `No action being taken. A card already exists in the project for the issue. Column:${info.currentColumnName}, cardId:${info.cardId}.`;
+//     } else if(info.columnId != null) {
+//         return await createNewCard(octokit, info.columnId, issueId);
+//     } else {
+//         throw `Unable to find a columnId for the column ${columnName}, with Url:${projectUrl}`;
+//     }
 }
 
 async function createNewCard(octokit, columnId, issueId){
